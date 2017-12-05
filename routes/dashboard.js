@@ -1,9 +1,12 @@
-var express = require('express');
-var router  = express.Router();
+// dashboard will only show current coins owned
 
-var dashboard_controller = require('../controllers/dashboard_controller');
+const express = require('express');
+const router  = express.Router();
 
-router.get('/', dashboard_controller.index);
-router.get('/search', dashboard_controller.search);
+const dashboard_controller = require('../controllers/dashboard_controller');
+const isAuthenticated = require('../config/middleware/isAuthenticated');
+
+router.get('/', isAuthenticated, dashboard_controller.index);
+// router.post('/new', dashboard_controller.search);
 
 module.exports = router;
