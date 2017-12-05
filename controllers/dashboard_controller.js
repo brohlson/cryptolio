@@ -1,34 +1,33 @@
-var db  = require('../models');
-var express = require('express');
-var router  = express.Router();
+// const db  = require('../models');
+const express = require('express');
+const request = require("request");
+
+
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 // Dummy controller 
 // Simple res.render("index"), api call to coinmarketcap.com 
-router.get('/', function(req, res) {
+exports.index = function(req, res) {
+request('https://api.coinmarketcap.com/v1/ticker/?limit=10', function (error, response, body) {
+  if(error){
+    console.log('error:', error); // Print the error if one occurred
+  }
+  res.render('index', {
+    layout:'main-index',
+    coins: body
+  })
+});
+};
 
-	db.Trip.findAll({
-    where: {
-    	UserId: req.user.id
+exports.search = function (req, res) {
+  coin = req.body.coin;
+  request('https://api.coinmarketcap.com/v1/ticker/' + coin , function(error, response, body){
+    if (error){
+      console.log('error:', error);
     }
-  }).then(function(dbTrip) {
-  	console.log(dbTrip);
-    res.render('trips/trips', {
-  		layout: 'main-trips',
-  		trip: dbTrip
-  	});
+    res.render('index', {
+      layout:'main-index',
+      coin: body
+    })
   });
-
-});
-
-router.post('/new', function(req, res) {
-
-	// Add id from User onto req.body
-	req.body.UserId = req.user.id;
-
-  db.Trip.create(req.body).then(function(dbPost) {
-    res.json(dbPost);
-  });
-});
-
-module.exports = router;
+}

@@ -30,7 +30,9 @@ app.set("view engine", 'handlebars');
 // routes and pass it app
 require("./routes")(app);
 
-app.listen(port, function(){
-    console.log("App listening on port " + port);
-})
+db.sequelize.sync().then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
 
