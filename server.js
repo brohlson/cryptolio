@@ -22,14 +22,14 @@ app.use(express.static("public"));
 const isAuth = require('./config/middleware/isAuthenticated');
 const authCheck = require('./config/middleware/attachAuthenticationStatus');
 
-app.use(flash());
+// app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(cookieParser());
-app.use(session({secret: config.sessionKey, resave:true, saveUninitialized: true}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(authCheck);
+// app.use(cookieParser());
+// app.use(session({secret: config.sessionKey, resave:true, saveUninitialized: true}));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(authCheck);
 
 // view engine
 // this code makes sure that the views folder that is parallel to the server.js file is used (in case we execute the server from a different location)
@@ -44,8 +44,6 @@ app.set("view engine", 'handlebars');
 
 // routes and pass it app
 require("./routes")(app);
-
-console.log(process.env.NODE_ENV);
 
 db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {
