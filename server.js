@@ -9,7 +9,7 @@ const port = process.env.PORT || 3005;
 const app = express();
 
 // database (it'll look for index.js, which is generated when we use the sequelize init command)
-var db = require("/.models");
+var db = require("./models");
 
 // static content
 app.use(express.static("public"));
