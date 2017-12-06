@@ -36,12 +36,16 @@ const express = require('express');
 
 exports.index = function(req, res) {
   
-    db.User.findOne({
-      where: {
-        email: req.user.email
-      },
+    // db.User.findOne({
+    //   where: {
+    //     email: req.body.email
+    //     email: req.user.email will be this one when we use isAuthenticated inside the routes
+    //   }, 
+    // include: [db.Coin]
+    db.User.findAll({
       include: [db.Coin]
-    }).then(function(coinResults) {
+    })
+      .then(function(coinResults) {
       console.log(coinResults);
       // res.render('portfolios/portfolios', {
       //   layout: 'main-portfolios',
