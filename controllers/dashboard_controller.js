@@ -35,7 +35,7 @@ const express = require('express');
 //   });
 
 exports.index = function(req, res) {
-  
+ 
     // db.User.findOne({
     //   where: {
     //     email: req.body.email
@@ -51,7 +51,10 @@ exports.index = function(req, res) {
       //   layout: 'main-portfolios',
       //   coins: coinResults
       // });
-      res.json(coinResults);
+      // res.json(coinResults);
+      res.render('index', {
+              layout:'main'
+            })
     });
   
   };
