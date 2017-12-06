@@ -11,7 +11,7 @@
   -o-transition: .5s ease-in-out;
   transition: .5s ease-in-out;
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 #nav-icon1 span {
@@ -73,12 +73,15 @@
 }
 
 div.menu-wrap {
-  width: 400px;
-  right: -400px;
+  width: 350px;
+  right: -350px;
   position: fixed;
   height: 100%;
   background: #1c2d38;
-  transition: .5s all;
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
 }
 
 .list-group-item {
