@@ -38,7 +38,7 @@ exports.index = function(req, res) {
   
     db.User.findOne({
       where: {
-        email: req.user.email
+        // email: req.user.email
       },
       include: [db.Coin]
     }).then(function(coinResults) {
@@ -47,7 +47,10 @@ exports.index = function(req, res) {
       //   layout: 'main-portfolios',
       //   coins: coinResults
       // });
-      res.json(coinResults);
+      // res.json(coinResults);
+      res.render('index', {
+              layout:'main'
+            })
     });
   
   };
