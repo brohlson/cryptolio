@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "!!QQaa22w",
+    "password": "",
     "database": "cryptolio",
     "host": "127.0.0.1",
     "dialect": "mysql"
