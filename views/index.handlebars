@@ -1,13 +1,101 @@
-<div class="container">
-<h1>Dashboard</h1>
-<a id="coinbase" class="btn btn-primary" href="#">Authorize</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 p-3 left">
+            <ul class="list-group totals">
+                <li class="list-group-item active totals">Portfolio Value:
+                    <span class="pitted">$
+                        <span id="usdVal">0</span>
+                    </span>
+                </li>
+                <li class="list-group-item totals">Nothing To Show</li>
+            </ul>
+            <ul class="list-group totals my-4">
+                <li class="list-group-item active totals">Add Holdings</li>
+                <li class="list-group-item totals">
+                    <form></form>
+                    <div class="form-group">
+                        <select class="form-control" placeholder="Select A Coin" id="coinName">
+                            <option>Bitcoin</option>
+                            <option>Ethereum</option>
+                            <option>Bitcoin Cash</option>
+                            <option>IOTA</option>
+                            <option>Ripple</option>
+                            <option>Litecoin</option>
+                            <option>Dash</option>
+                            <option>NEO</option>
+                            <option>Monero</option>
+                            <option>Lisk</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input id="coinQty" type="text" class="form-control" placeholder="Enter Quantity">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary btn-warning" id="submitCoin" type="submit">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                </i>
+                            </button>
+                        </span>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6 p-3">
+            <ul class="list-group totals">
+                <li class="list-group-item active">Breakdown</li>
+                <li class="list-group-item">
+                    <canvas id="myChart" width="1600" height="900"></canvas>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <a href='https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread'>click</a>
 </div>
-
 <script>
-$("#coinbase").click(function(event) {
-    event.preventDefault();
-    console.log("click");
-    window.location.replace("https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread");
-});
-</script>
+    $("#coinbase").click(function (event) {
+        event.preventDefault();
+        console.log("click");
+        window.location.replace(
+            "https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread"
+        );
+    });
 
+    $("#submitCoin").click(function (event) {
+        event.preventDefault();
+        let name = $('#coinName').val();
+        let qty = $('#coinQty').val();
+        console.log("Coin: " + name + " Qty: " + qty);
+    });
+
+    var labels;
+    var data;
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+
+        // The data for our dataset
+        data: {
+            labels: ["Bitcoin", "Ethereum", "Neo"],
+            datasets: [{
+                label: "Total (USD)",
+                backgroundColor: 'white',
+                borderColor: 'white',
+                fontColor: 'white',
+                data: [1000, 999, 333, 222, 111, 330, 445],
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+        legend: {
+            labels: {
+                // This more specific font property overrides the global property
+                fontColor: 'white'
+            }
+        }
+    }
+    });
+</script>
