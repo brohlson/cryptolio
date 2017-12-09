@@ -71,7 +71,7 @@ const request = require("request");
     //         })
     // });
   
-  };
+  // };
 
   // exports.addCoin = function(req, res) {
   //   req.user
