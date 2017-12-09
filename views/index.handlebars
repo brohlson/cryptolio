@@ -1,1 +1,13 @@
+<div class="container">
 <h1>Dashboard</h1>
+<a id="coinbase" class="btn btn-primary" href="#">Authorize</a>
+</div>
+
+<script>
+$("#coinbase").click(function(event) {
+    event.preventDefault();
+    console.log("click");
+    window.location.replace("https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread");
+});
+</script>
+
