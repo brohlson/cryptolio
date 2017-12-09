@@ -1,6 +1,6 @@
 // dashboard will only show current coins owned
 
-const db  = require('../models');
+const db = require('../models');
 const express = require('express');
 // const request = require("request");
 
@@ -34,18 +34,18 @@ const express = require('express');
 //     })
 //   });
 
-exports.index = function(req, res) {
- 
-    // db.User.findOne({
-    //   where: {
-    //     email: req.body.email
-    //     email: req.user.email will be this one when we use isAuthenticated inside the routes
-    //   }, 
-    // include: [db.Coin]
-    db.User.findAll({
+exports.index = function (req, res) {
+
+  // db.User.findOne({
+  //   where: {
+  //     email: req.body.email
+  //     email: req.user.email will be this one when we use isAuthenticated inside the routes
+  //   }, 
+  // include: [db.Coin]
+  db.user.findAll({
       include: [db.Coin]
     })
-      .then(function(coinResults) {
+    .then(function (coinResults) {
       console.log(coinResults);
       // res.render('portfolios/portfolios', {
       //   layout: 'main-portfolios',
@@ -53,10 +53,20 @@ exports.index = function(req, res) {
       // });
       // res.json(coinResults);
       res.render('index', {
-              layout:'main'
-            })
+        layout: 'main'
+      })
     });
-  
-  };
 
+};
+
+exports.auth = function (req, res) {
   
+  let queryUrl = 'https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread';
+
+  window.location.replace(queryUrl);
+
+  $.get(queryUrl, function (data, status) {
+    console.log(data);
+  });
+
+};
