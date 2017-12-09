@@ -3,7 +3,7 @@ var express = require('express');
 
 exports.index = function(req, res) {
 
-	db.User.findOne({
+	db.user.findOne({
     where: {
     	email: req.user.email
     },
