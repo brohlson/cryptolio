@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4 p-3 left">
+        <div class="col-md-3 p-3 left">
             <ul class="list-group totals">
                 <li class="list-group-item active totals">Portfolio Value:
                     <span class="pitted">$
@@ -40,12 +40,18 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
+        <div class="col-md-6 p-3">
+            <ul class="list-group totals">
+                <li class="list-group-item active">Breakdown</li>
+                <li class="list-group-item">
+                    <canvas id="myChart" width="1600" height="900"></canvas>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
     </div>
     <a href='https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread'>click</a>
 </div>
-
 <script>
     $("#coinbase").click(function (event) {
         event.preventDefault();
@@ -54,12 +60,42 @@
             "https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread"
         );
     });
- 
-       $("#submitCoin").click(function (event) {
+
+    $("#submitCoin").click(function (event) {
         event.preventDefault();
         let name = $('#coinName').val();
         let qty = $('#coinQty').val();
         console.log("Coin: " + name + " Qty: " + qty);
     });
 
+    var labels;
+    var data;
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+
+        // The data for our dataset
+        data: {
+            labels: ["Bitcoin", "Ethereum", "Neo"],
+            datasets: [{
+                label: "Total (USD)",
+                backgroundColor: 'white',
+                borderColor: 'white',
+                fontColor: 'white',
+                data: [1000, 999, 333, 222, 111, 330, 445],
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+        legend: {
+            labels: {
+                // This more specific font property overrides the global property
+                fontColor: 'white'
+            }
+        }
+    }
+    });
 </script>
