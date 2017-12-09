@@ -2,7 +2,7 @@
 
 const db = require('../models');
 const express = require('express');
-// const request = require("request");
+const request = require("request");
 
 
 
@@ -10,15 +10,13 @@ const express = require('express');
 
 // Dummy controller 
 // Simple res.render("index"), api call to coinmarketcap.com 
-// exports.index = function(req, res) {
-// request('https://api.coinmarketcap.com/v1/ticker/?limit=10', function (error, response, body) {
+// exports.allcoin = function(req, res) {
+// request('https://api.coinmarketcap.com/v1/ticker/', function (error, response, body) {
 //   if(error){
 //     console.log('error:', error); // Print the error if one occurred
 //   }
-//   res.render('index', {
-//     layout:'main-index',
-//     coins: body
-//   })
+//   console.log(JSON.parse(body));
+//   res.json(JSON.parse(body));
 // });
 // };
 
@@ -33,6 +31,54 @@ const express = require('express');
 //       coin: body
 //     })
 //   });
+
+
+// exports.index = function(req, res) { unncomment from here
+
+//   var coinObj = {};
+ 
+//     request('https://api.coinmarketcap.com/v1/ticker/?limit=10', function (error, response, body) {
+//   if(error){
+//     console.log('error:', error); // Print the error if one occurred
+//   }
+//   db.user.findAll({
+//     include:[db.Coin]
+//   })
+//   .then(function(coinResults){
+//       coinObj = {
+//     coin: JSON.parse(body),
+//     dbResults: coinResults
+//   };
+//     res.json(coinObj);
+//   });
+//   }); to here when sending back api call for coins from db and coinmarketcap
+
+  // console.log(JSON.parse(body));
+  // res.json(JSON.parse(body));
+    // });
+    // db.user.findAll({
+    //   include: [db.Coin]
+    // })
+    //   .then(function(coinResults) {
+    //   // console.log(coinResults);
+    //   // res.render('portfolios/portfolios', {
+    //   //   layout: 'main-portfolios',
+    //   //   coins: coinResults
+    //   // });
+    //   // res.json(coinResults);
+    //   res.render('index', {
+    //           layout:'main'
+    //         })
+    // });
+  
+  };
+
+  // exports.addCoin = function(req, res) {
+  //   req.user
+  //   db.user.create({
+
+  //   })
+  // }
 
 exports.index = function (req, res) {
 

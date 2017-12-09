@@ -7,6 +7,11 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
       allowNull: false
     },
+    coinSymbol:{
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
     numCoins: {
       type: DataTypes.INTEGER,
       allowNull: true,

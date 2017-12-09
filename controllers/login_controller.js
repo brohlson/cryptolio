@@ -17,7 +17,7 @@ exports.index = function(req, res) {
     //     email: req.user.email will be this one when we use isAuthenticated inside the routes
     //   }, 
     // include: [db.Coin]
-    db.User.findAll({
+    db.user.findAll({
       include: [db.Coin]
     })
       .then(function(coinResults) {
