@@ -10,5 +10,12 @@ $(document).ready(function(){
 		$('#login').modal({
 			backdrop: "static"
 		  })
+
+	// Modal options 
+	$('#sign-in-choice').click(function(){
+		$('#login-form').toggleClass('show');
+		$('#sign-up-form').toggleClass('remove');
+		$('#returning').toggleClass('remove');
+		});	  
 });
 

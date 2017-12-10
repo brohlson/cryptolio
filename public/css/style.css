@@ -201,6 +201,16 @@ ul.list-group.totals {
 .remove {
   display: none;
 }
-#login-form, #signup-form {
+#login-form {
   display: none;
+}
+
+#sign-up, #login {
+  font-size: 18px;
+}
+
+#sign-in-choice {
+  color: #395c79;
+  text-decoration: underline;
+  font-weight: bold;
 }
