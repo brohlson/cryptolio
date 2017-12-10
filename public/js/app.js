@@ -5,4 +5,10 @@ $(document).ready(function(){
 	$(this).toggleClass('open');
 	$('#menu').toggleClass('show');
 	});
+
+	    // Modal init 
+		$('#login').modal({
+			backdrop: "static"
+		  })
 });
+

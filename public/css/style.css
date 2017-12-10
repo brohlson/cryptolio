@@ -99,6 +99,7 @@ div.menu-wrap {
   font-size: 30px;
 }
 
+
 /* .list-group-item:hover {
   color: white;
   background: #375F7A;
@@ -157,4 +158,49 @@ ul.list-group.totals {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
   position: relative;
   z-index: 1;
+}
+
+.modal-header {
+  background: #1d2d39;
+  border: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: #395d79;
+  border-color: #395d79;
+  font-size: 1.5em;
+}
+
+.modal-backdrop {
+  background-color: #395d79;
+  opacity: 1 !important;
+}
+.modal-dialog {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+}
+@media(max-width: 768px) {
+.modal-dialog {
+  min-height: calc(100vh - 20px);
+}
+}
+.fa {
+  font-size: 20px !important;
+}
+.show {
+  display: block !important;
+}
+.remove {
+  display: none;
+}
+#login-form, #signup-form {
+  display: none;
 }
