@@ -13,7 +13,7 @@ const dashboard_controller = require('../controllers/dashboard_controller');
 // router.post('/addCoin', dashboard_controller.addCoin)
 // router.get('/', dashboard_controller.allcoin);
 
-    // router.post('/signup',dashboard_controller.signUpUser);
+    
     // router.post('/login', passport.authenticate('local'), dashboard_controller.loginUser);
 
 router.get('/', dashboard_controller.index);

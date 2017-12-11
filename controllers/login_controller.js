@@ -9,29 +9,43 @@ const express = require('express');
 // var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 
-exports.index = function(req, res) {
- 
-    // db.User.findOne({
-    //   where: {
-    //     email: req.body.email
-    //     email: req.user.email will be this one when we use isAuthenticated inside the routes
-    //   }, 
-    // include: [db.Coin]
-    db.user.findAll({
-      include: [db.Coin]
-    })
-      .then(function(coinResults) {
-      console.log(coinResults);
-      // res.render('portfolios/portfolios', {
-      //   layout: 'main-portfolios',
-      //   coins: coinResults
-      // });
-      // res.json(coinResults);
-      res.render('login', {
-              layout:'main'
-            })
-    });
+exports.signUpUser = function(req, res) {
+
+  db.user.findOrCreate({
+    where:{email:req.body.email}, defaults:{password:req.body.password}
+  }).spread((user, created)=> {
+    console.log(user.get({
+      plain: true
+    }))
+    console.log(created)
+  })
+
+  // db.user.findAll({
+  //   where: {email: req.body.email}
+  // }).then(function(users) {
+  //   console.log("users");
+  //   console.log(users);
+  //   if (users.length > 0) {
+  //     res.json({
+  //       duplicateUser: true
+  //     });
+  //   //At some point, make sure that only one user can be associated with an email.
+  //   } else {
+  //     console.log("creating new user");
+  //     console.log(req.body.email);
+  //     console.log(req.body.password)
+  //     db.user.create({
+  //       email: req.body.email,
+  //       password: req.body.password
+  //     }).then(function(newUser) {
+  //       console.log(newUser);
+  //       // res.send({redirect: '/'});
+  //     }).catch(function(err) {
+  //       res.json(err);
+  //     });
+  //   }
+  // })
   
-  };
+};
 
   
