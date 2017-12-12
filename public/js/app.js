@@ -6,11 +6,6 @@ $(document).ready(function(){
 		$('#menu').toggleClass('show');
 	});
 
-	    // Modal init 
-		$('#login').modal({
-			backdrop: "static"
-		  })
-
 	// Modal options 
 	$('#sign-in-choice').click(function(){
 		$('#login-form').toggleClass('show');
@@ -40,6 +35,20 @@ $(document).ready(function(){
 			console.log(err);
 		})
 	});
+
+	$("#login").on("click", function(event){
+		var loginEmail = $("#loginEmail").val().trim();
+		var loginPW = $("#loginPW").val().trim();
+		$.post("/login/login", {
+			email: loginEmail,
+			password: loginPW
+		}).then(function(data){
+			window.location.replace(data);
+		}).catch(function(err){
+			console.log(err);
+			// some other feedback that password is incorrect
+		});
+	})
 
 });
 
