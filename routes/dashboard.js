@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const passport = require('../config/passport');
+
 const isAuthenticated = require('../config/middleware/isAuthenticated');
 const dashboard_controller = require('../controllers/dashboard_controller');
 
@@ -14,9 +14,9 @@ const dashboard_controller = require('../controllers/dashboard_controller');
 // router.get('/', dashboard_controller.allcoin);
 
     
-    // router.post('/login', passport.authenticate('local'), dashboard_controller.loginUser);
+    
 
-router.get('/', dashboard_controller.index);
+router.get('/', isAuthenticated, dashboard_controller.index);
 router.get('/coinbase_auth', dashboard_controller.auth);
 
 // router.get('/', isAuthenticated, dashboard_controller.index); will use this when authenication is implemented
