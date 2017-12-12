@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     numCoins: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       validate: {
         isInt: true
       }

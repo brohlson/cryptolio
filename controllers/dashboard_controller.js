@@ -6,11 +6,12 @@ const request = require("request");
 
 
 exports.index = function (req, res) {
+      console.log("this is req.user.email " + req.user.email);
       db.user.findAll({
+      where: {email: req.user.email},
       include: [db.Coin]
     })
     .then(function (coinResults) {
-      console.log(coinResults);
       res.render('index')
     });
 };
@@ -27,3 +28,19 @@ exports.auth = function (req, res) {
   });
 
 };
+
+exports.addCoin = function(req, res) {
+
+
+  let email = req.user.email;
+  let coin = {
+    coinName: req.body.coinName,
+    coinSymbol: req.body.coinSymbol,
+    numCoins: parseInt(req.body.numCoins),
+    userEmail: email
+  }
+
+  db.Coin.create(coin).then(function(dbCoin){
+    res.json(dbCoin);
+  })
+}

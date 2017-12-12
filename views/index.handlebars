@@ -12,19 +12,19 @@
             <ul class="list-group totals my-4">
                 <li class="list-group-item active totals">Add Holdings</li>
                 <li class="list-group-item totals">
-                    <form></form>
+                    <form>
                     <div class="form-group">
                         <select class="form-control" placeholder="Select A Coin" id="coinName">
-                            <option>Bitcoin</option>
-                            <option>Ethereum</option>
-                            <option>Bitcoin Cash</option>
-                            <option>IOTA</option>
-                            <option>Ripple</option>
-                            <option>Litecoin</option>
-                            <option>Dash</option>
-                            <option>NEO</option>
-                            <option>Monero</option>
-                            <option>Lisk</option>
+                            <option data-symbol="BTC">Bitcoin</option>
+                            <option data-symbol="ETH">Ethereum</option>
+                            <option data-symbol="BCH">Bitcoin Cash</option>
+                            <option data-symbol="MIOTA">IOTA</option>
+                            <option data-symbol="XRP">Ripple</option>
+                            <option data-symbol="LTC">Litecoin</option>
+                            <option data-symbol="DASH">Dash</option>
+                            <option data-symbol="NEO">NEO</option>
+                            <option data-symbol="XMR">Monero</option>
+                            <option data-symbol="LSK">Lisk</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -35,7 +35,7 @@
                                 </i>
                             </button>
                         </span>
-                        </form>
+                    </form>
                     </div>
                 </li>
             </ul>
@@ -66,9 +66,19 @@
         event.preventDefault();
         let name = $('#coinName').val();
         let qty = $('#coinQty').val();
-        console.log("Coin: " + name + " Qty: " + qty);
-        $('#coinName').val('')
-        $('#coinQty').val('')
+        let symbol = $('#coinName').find(':selected').attr('data-symbol');
+        console.log("Coin: " + name + " Qty: " + qty + " Sym: " + symbol);
+        $('#coinName').val('');
+        $('#coinQty').val('');
+
+
+        $.post('/addCoin', {
+            coinName: name,
+            coinSymbol: symbol,
+            numCoins: qty
+        }).then(function(data){
+            console.log(data);
+        })
     });
 
     var labels;
