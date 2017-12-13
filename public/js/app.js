@@ -7,11 +7,11 @@ $(document).ready(function(){
 	});
 
 	// Modal options 
-	$('#sign-in-choice').click(function(){
-		$('#login-form').toggleClass('show');
-		$('#sign-up-form').toggleClass('remove');
-		$('#returning').toggleClass('remove');
-	});
+	// $('#sign-in-choice').click(function(){
+	// 	$('#login-form').toggleClass('show');
+	// 	$('#sign-up-form').toggleClass('remove');
+	// 	$('#returning').toggleClass('remove');
+	// });
 
 			// signUp
 
@@ -26,10 +26,12 @@ $(document).ready(function(){
 			email: signUpEmail,
 			password: signUpPW
 		}).then(function(data){
-			if(data.duplicateUser){
+			if(data === false){
 				alert("sorry, that email is already in use");
 			} else {
 				window.location.replace = data.redirect;
+				$("#signUpEmail").val("");
+				$("#signUpPass").val("");
 			}
 		}).catch(function(err){
 			console.log(err);

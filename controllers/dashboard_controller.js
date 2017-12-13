@@ -6,15 +6,22 @@ const request = require("request");
 
 
 exports.index = function (req, res) {
+      res.render('index')
+};
+
+exports.userData = function(req, res){
       console.log("this is req.user.email " + req.user.email);
       db.user.findAll({
       where: {email: req.user.email},
-      include: [db.Coin]
+      attributes:[[db.sequelize.fn('SUM', db.sequelize.col('numCoins')), 'numberOfCoins']],
+      include: [db.Coin],
+      group: 'coinName'
     })
     .then(function (coinResults) {
-      res.render('index')
+      // console.log(JSON.stringify(coinResults));
+      res.json(coinResults);
     });
-};
+}
 
 
 exports.auth = function (req, res) {

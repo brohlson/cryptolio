@@ -4,6 +4,10 @@ const db  = require('../models');
 const express = require('express');
 // const request = require("request");
 
+exports.index = function (req, res){
+  res.render("login");
+}
+
 
 exports.signUpUser = function(req, res) {
 
@@ -13,7 +17,8 @@ exports.signUpUser = function(req, res) {
     console.log(user.get({
       plain: true
     }))
-    console.log(created)
+    console.log(created);
+    res.json(created);
   })
   
 };

@@ -4,12 +4,10 @@ module.exports = function(sequelize, DataTypes) {
   var Coin = sequelize.define('Coin', {
     coinName: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     coinSymbol:{
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     numCoins: {
