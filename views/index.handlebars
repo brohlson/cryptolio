@@ -78,39 +78,49 @@
             numCoins: qty
         }).then(function(data){
             console.log(data);
+            location.reload();
         })
     });
 
-    var labels;
-    var data;
+    $.get('/userData').then(function(data){
+        console.log(data);
+        let labelsData = [];
+        for(var i = 0; i<data[0].Coins.length; i++){
+            labelsData.push(data[0].Coins[i].coinName);
+        }
+        var labels;
+        var data;
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'horizontalBar',
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'horizontalBar',
 
-        // The data for our dataset
-        data: {
-            labels: ["Bitcoin", "Ethereum", "Neo"],
-            datasets: [{
-                label: "Total (USD)",
-                backgroundColor: 'white',
-                borderColor: 'white',
-                fontColor: 'white',
-                data: [1000, 999, 333, 222, 111, 330, 445],
-            }]
-        },
+            // The data for our dataset
+            data: {
+                labels: labelsData,
+                datasets: [{
+                    label: "Total (USD)",
+                    backgroundColor: 'white',
+                    borderColor: 'white',
+                    fontColor: 'white',
+                    data: [1000, 999, 333, 222, 111, 330, 445],
+                }]
+            },
 
-        // Configuration options go here
-        options: {
-            legend: {
-                labels: {
-                    // This more specific font property overrides the global property
-                    fontColor: 'white'
+            // Configuration options go here
+            options: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        fontColor: 'white'
+                    }
+
                 }
 
             }
+        });
+    })
 
-        }
-    });
+
 </script>

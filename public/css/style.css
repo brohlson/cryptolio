@@ -201,9 +201,9 @@ ul.list-group.totals {
 .remove {
   display: none;
 }
-#login-form {
+/*#login-form {
   display: none;
-}
+}*/
 
 #sign-up, #login {
   font-size: 18px;

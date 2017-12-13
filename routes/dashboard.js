@@ -17,6 +17,7 @@ const dashboard_controller = require('../controllers/dashboard_controller');
     
 
 router.get('/', isAuthenticated, dashboard_controller.index);
+router.get('/userData', isAuthenticated, dashboard_controller.userData);
 router.get('/coinbase_auth', dashboard_controller.auth);
 router.post('/addCoin', isAuthenticated, dashboard_controller.addCoin);
 
