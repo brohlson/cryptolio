@@ -7,34 +7,35 @@
                         <span id="usdVal">0</span>
                     </span>
                 </li>
-                <li class="list-group-item totals">Nothing To Show</li>
+                <li class="list-group-item totals"><i class="news-loading fa fa-spin fa-spinner" aria-hidden="true"></i></li>
+                
             </ul>
             <ul class="list-group totals my-4">
                 <li class="list-group-item active totals">Add Holdings</li>
                 <li class="list-group-item totals">
                     <form>
-                    <div class="form-group">
-                        <select class="form-control" placeholder="Select A Coin" id="coinName">
-                            <option data-symbol="BTC">Bitcoin</option>
-                            <option data-symbol="ETH">Ethereum</option>
-                            <option data-symbol="BCH">Bitcoin Cash</option>
-                            <option data-symbol="MIOTA">IOTA</option>
-                            <option data-symbol="XRP">Ripple</option>
-                            <option data-symbol="LTC">Litecoin</option>
-                            <option data-symbol="DASH">Dash</option>
-                            <option data-symbol="NEO">NEO</option>
-                            <option data-symbol="XMR">Monero</option>
-                            <option data-symbol="LSK">Lisk</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <input id="coinQty" type="text" class="form-control" placeholder="Enter Quantity">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary btn-warning" id="submitCoin" type="submit">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                </i>
-                            </button>
-                        </span>
+                        <div class="form-group">
+                            <select class="form-control" placeholder="Select A Coin" id="coinName">
+                                <option data-symbol="BTC">Bitcoin</option>
+                                <option data-symbol="ETH">Ethereum</option>
+                                <option data-symbol="BCH">Bitcoin Cash</option>
+                                <option data-symbol="MIOTA">IOTA</option>
+                                <option data-symbol="XRP">Ripple</option>
+                                <option data-symbol="LTC">Litecoin</option>
+                                <option data-symbol="DASH">Dash</option>
+                                <option data-symbol="NEO">NEO</option>
+                                <option data-symbol="XMR">Monero</option>
+                                <option data-symbol="LSK">Lisk</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <input id="coinQty" type="text" class="form-control" placeholder="Enter Quantity">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary btn-warning" id="submitCoin" type="submit">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </i>
+                                </button>
+                            </span>
                     </form>
                     </div>
                 </li>
@@ -48,12 +49,18 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3 p-3 right">
+            <div class="list-group" id="news-group">
+                <a class="list-group-item list-group-item-action active news-group-item">
+                    Crypto News <i class="news-loading fa fa-spin fa-spinner" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
     </div>
     <a href='https://www.coinbase.com/oauth/authorize?client_id=292d61271cf240147c550bef04ecb2a33fa1c50b4ecb062a8ce4d0562635a0b9&redirect_uri=http%3A%2F%2Flocalhost%3A3005%2F&response_type=code&scope=wallet%3Auser%3Aread'>click</a>
 </div>
 <script>
-    // Button for Syncing with Coinvase
+    // Button for Syncing with Coinbase
     $("#coinbase").click(function (event) {
         event.preventDefault();
         console.log("click");
@@ -76,13 +83,13 @@
             coinName: name,
             coinSymbol: symbol,
             numCoins: qty
-        }).then(function(data){
+        }).then(function (data) {
             console.log(data);
             location.reload();
         })
     });
 
-    $.get('/userData').then(function(data){
+    $.get('/userData').then(function (data) {
         console.log(data);
 
         var labels;
@@ -92,12 +99,12 @@
         var chart = new Chart(ctx, {
             // The type of chart we want to create
             type: 'horizontalBar',
-
             // The data for our dataset
             data: {
                 labels: data.coinNames,
                 datasets: [{
                     label: "Total (USD)",
+                    labelTextColor: "white",
                     backgroundColor: 'white',
                     borderColor: 'white',
                     fontColor: 'white',
@@ -114,17 +121,51 @@
                     }
 
                 },
-                scales:{
+                scales: {
                     xAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            fontColor: "white"
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "white"
                         }
                     }]
-                }
+                },
 
             }
         });
+
     })
 
+    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+    url += '?' + $.param({
+        'api-key': "51ddc7961de648eb9330f8616cf43da0",
+        'q': "cryptocurrency"
+    });
+    $.ajax({
+        url: url,
+        method: 'GET',
+    }).done(function (result) {
 
+        $('.news-loading').remove();
+
+        for (i = 0; i < 5; i++) {
+            console.log(result.response.docs[i].web_url);
+            console.log(result.response.docs[i].headline.main);
+
+            var article = $("<a>");
+            article.addClass("list-group-item list-group-item-action news-group-item-small");
+            article.attr("href", result.response.docs[i].web_url);
+            article.attr("target", "blank");
+            article.text(result.response.docs[i].headline.main);
+            $("#news-group").append(article);
+
+        }
+
+    }).fail(function (err) {
+        throw err;
+    });
 </script>
