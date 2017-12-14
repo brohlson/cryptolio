@@ -3,6 +3,7 @@
 const db = require('../models');
 const express = require('express');
 const request = require("request");
+const rp = require("request-promise");
 
 
 exports.index = function (req, res) {
@@ -10,7 +11,11 @@ exports.index = function (req, res) {
 };
 
 exports.userData = function(req, res){
-      console.log("this is req.user.email " + req.user.email);
+  let coinApi;
+  // API call to coinmarket to grab prices of coins
+  rp("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,LTC,ETH,DASH,BCH,IOTA,XRP,NEO,XMR,LSK&tsyms=USD").then(function(data){
+    coinApi = data;
+  }).then(function(){
       db.user.findAll({
       where: {email: req.user.email},
       include: [db.Coin]
@@ -19,10 +24,12 @@ exports.userData = function(req, res){
       let coins =[];
       let coinAmts = [];
       let coinSym = [];
+      let coinPrice = [];
       for(i=0;i<coinResults[0].Coins.length;i++){
         if(coins.indexOf(coinResults[0].Coins[i].coinName) === -1){
           coins.push(coinResults[0].Coins[i].coinName);
           coinSym.push(coinResults[0].Coins[i].coinSymbol);
+          coinPrice.push(JSON.parse(coinApi)[coinResults[0].Coins[i].coinSymbol])
           let totalCoins = 0;
           for(j=0;j<coinResults[0].Coins.length;j++){
             if(coinResults[0].Coins[i].coinName === coinResults[0].Coins[j].coinName){
@@ -32,7 +39,10 @@ exports.userData = function(req, res){
           coinAmts.push(totalCoins);
         }
       }
-      res.json({coinNames: coins, amounts: coinAmts, coinSymbols: coinSym});
+      console.log(JSON.parse(coinApi).BTC)
+      console.log(coinPrice);
+      res.json({coinNames: coins, amounts: coinAmts, coinSymbols: coinSym, coinPrices: coinPrice});
+    });
     });
 }
 
