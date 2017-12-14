@@ -66,9 +66,10 @@ exports.addCoin = function(req, res) {
   let coin = {
     coinName: req.body.coinName,
     coinSymbol: req.body.coinSymbol,
-    numCoins: parseInt(req.body.numCoins),
+    numCoins: parseFloat(req.body.numCoins),
     userEmail: email
   }
+
 
   db.Coin.create(coin).then(function(dbCoin){
     res.json(dbCoin);
