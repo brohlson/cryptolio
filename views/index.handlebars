@@ -14,28 +14,28 @@
                 <li class="list-group-item active totals">Add Holdings</li>
                 <li class="list-group-item totals">
                     <form>
-                        <div class="form-group">
-                            <select class="form-control" placeholder="Select A Coin" id="coinName">
-                                <option data-symbol="BTC">Bitcoin</option>
-                                <option data-symbol="ETH">Ethereum</option>
-                                <option data-symbol="BCH">Bitcoin Cash</option>
-                                <option data-symbol="MIOTA">IOTA</option>
-                                <option data-symbol="XRP">Ripple</option>
-                                <option data-symbol="LTC">Litecoin</option>
-                                <option data-symbol="DASH">Dash</option>
-                                <option data-symbol="NEO">NEO</option>
-                                <option data-symbol="XMR">Monero</option>
-                                <option data-symbol="LSK">Lisk</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <input id="coinQty" type="text" class="form-control" placeholder="Enter Quantity">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary btn-warning" id="submitCoin" type="submit">
-                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                    </i>
-                                </button>
-                            </span>
+                    <div class="form-group">
+                        <select class="form-control" placeholder="Select A Coin" id="coinName">
+                            <option data-symbol="BTC">Bitcoin</option>
+                            <option data-symbol="ETH">Ethereum</option>
+                            <option data-symbol="BCH">Bitcoin Cash</option>
+                            <option data-symbol="IOTA">IOTA</option>
+                            <option data-symbol="XRP">Ripple</option>
+                            <option data-symbol="LTC">Litecoin</option>
+                            <option data-symbol="DASH">Dash</option>
+                            <option data-symbol="NEO">NEO</option>
+                            <option data-symbol="XMR">Monero</option>
+                            <option data-symbol="LSK">Lisk</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input id="coinQty" type="text" class="form-control" placeholder="Enter Quantity">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary btn-warning" id="submitCoin" type="submit">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                </i>
+                            </button>
+                        </span>
                     </form>
                     </div>
                 </li>
@@ -91,6 +91,20 @@
 
     $.get('/userData').then(function (data) {
         console.log(data);
+        let one = data.amounts;
+        let two = data.coinPrices;
+
+        console.log(data.amounts[0])
+        console.log(data.coinPrices[0].USD);
+
+        console.log(one[0] * two[0].USD);
+        let total=0;
+        for(i=0;i<data.coinNames.length;i++){
+            total += one[i] * two[i].USD
+        }
+
+        console.log(total);
+        $("#usdVal").text(total.toFixed(2));
 
         var labels;
         var data;
