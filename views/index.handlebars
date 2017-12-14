@@ -84,10 +84,7 @@
 
     $.get('/userData').then(function(data){
         console.log(data);
-        let labelsData = [];
-        for(var i = 0; i<data[0].Coins.length; i++){
-            labelsData.push(data[0].Coins[i].coinName);
-        }
+
         var labels;
         var data;
 
@@ -98,13 +95,13 @@
 
             // The data for our dataset
             data: {
-                labels: labelsData,
+                labels: data.coinNames,
                 datasets: [{
                     label: "Total (USD)",
                     backgroundColor: 'white',
                     borderColor: 'white',
                     fontColor: 'white',
-                    data: [1000, 999, 333, 222, 111, 330, 445],
+                    data: data.amounts,
                 }]
             },
 
@@ -116,6 +113,13 @@
                         fontColor: 'white'
                     }
 
+                },
+                scales:{
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
 
             }

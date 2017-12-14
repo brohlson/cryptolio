@@ -13,13 +13,26 @@ exports.userData = function(req, res){
       console.log("this is req.user.email " + req.user.email);
       db.user.findAll({
       where: {email: req.user.email},
-      attributes:[[db.sequelize.fn('SUM', db.sequelize.col('numCoins')), 'numberOfCoins']],
-      include: [db.Coin],
-      group: 'coinName'
+      include: [db.Coin]
     })
     .then(function (coinResults) {
-      // console.log(JSON.stringify(coinResults));
-      res.json(coinResults);
+      let coins =[];
+      let coinAmts = [];
+      let coinSym = [];
+      for(i=0;i<coinResults[0].Coins.length;i++){
+        if(coins.indexOf(coinResults[0].Coins[i].coinName) === -1){
+          coins.push(coinResults[0].Coins[i].coinName);
+          coinSym.push(coinResults[0].Coins[i].coinSymbol);
+          let totalCoins = 0;
+          for(j=0;j<coinResults[0].Coins.length;j++){
+            if(coinResults[0].Coins[i].coinName === coinResults[0].Coins[j].coinName){
+              totalCoins += coinResults[0].Coins[j].numCoins;
+            }
+          }
+          coinAmts.push(totalCoins);
+        }
+      }
+      res.json({coinNames: coins, amounts: coinAmts, coinSymbols: coinSym});
     });
 }
 
