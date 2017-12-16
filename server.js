@@ -26,7 +26,7 @@ app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieParser());
-app.use(session({cookie:{secure: true,maxAge:60000},secret: config.sessionKey, resave:true, saveUninitialized: true}));
+app.use(session({secret: config.sessionKey, resave:true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(authCheck);
