@@ -33,7 +33,7 @@ app.use(authCheck);
 
 // view engine
 // this code makes sure that the views folder that is parallel to the server.js file is used (in case we execute the server from a different location)
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 const exphbs = require("express-handlebars");
 app.engine("handlebars",exphbs({
