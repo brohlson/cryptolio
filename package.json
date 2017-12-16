@@ -40,5 +40,8 @@
   "bugs": {
     "url": "https://github.com/brohlson/cryptolio/issues"
   },
-  "homepage": "https://github.com/brohlson/cryptolio#readme"
+  "homepage": "https://github.com/brohlson/cryptolio#readme",
+  "engines": {
+    "node":"9.1.0"
+  }
 }
