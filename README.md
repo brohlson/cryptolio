@@ -1,5 +1,7 @@
 # Cryptolio
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/brohlson/cryptolio.svg)](https://greenkeeper.io/)
+
 ## Hosted on Heroku
  - https://fathomless-inlet-17347.herokuapp.com/
 ## Git Repo
